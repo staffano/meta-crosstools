@@ -42,7 +42,7 @@ By running the `image` target, the toolchain is installed in the `tmp/IMAGES` di
 
 ## License
 
-See [License](License)
+See [License](LICENSE)
 
 
 
