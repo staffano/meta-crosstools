@@ -1,0 +1,33 @@
+#OVERRIDES += "eglibc"
+
+TARGET = "x86_64-w64-mingw32"
+HOST = "x86_64-pc-linux-gnu"
+BUILD = "x86_64-pc-linux-gnu"
+KERNEL_ARCH = "mips"
+
+# Set the preferred provider of libc. We need two versions. One for building initial
+# version of gcc and then the final version.
+
+PREFERRED_PROVIDERS = "libc-for-gcc:mingw-w64-headers libc:mingw-w64-final"
+
+#PREFERRED_PROVIDERS = "libc-for-gcc:eglibc-initial libc:eglibc-final"
+#PREFERRED_PROVIDERS = "libc-for-gcc:glibc-initial libc:glibc-final"
+
+#PREFERRED_VERSION_linux-headers = "3.2"
+
+#PREFERRED_VERSION_eglibc-initial = "2.15"
+#PREFERRED_VERSION_eglibc-final = "2.15"
+
+# When building for artpec-4/5, set these.
+#ADDITIONAL_GCC_CONF += "--with-arch=34kc"
+#ADDITIONAL_GCC_CONF += "--with-float=soft"
+
+# artpec-4/5 has no hard float, exclude from libc
+# --without-gd eliminates a link-error (cf. http://www.linuxfromscratch.org/lfs/view/6.2/chapter05/glibc.html)
+#ADDITIONAL_GLIBC_CONF += "--without-fp"
+#ADDITIONAL_GLIBC_CONF += "--without-gd"
+
+MIRRORS += "http://ftp.gnu.org/gnu"
+BB_NUMBER_THREADS = "12"
+
+MAKE_JX := "-j12"
