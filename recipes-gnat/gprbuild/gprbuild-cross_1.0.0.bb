@@ -4,11 +4,9 @@ DEPENDS = "xmlada-cross"
 
 B = "${WORKDIR}/${BUILD}.${TARGET}"
 
-# Since gprbuild is not with prefix, we need to make sure the native version
-# is first in the PATH
-
+# Build gpr build to execute on host.
 do_configure() {
- 	make -f ${S}/Makefile prefix=${INSTALL_DIR} SOURCE_DIR=${S} TARGET=${TARGET} setup 
+ 	make -f ${S}/Makefile prefix=${INSTALL_DIR} SOURCE_DIR=${S} TARGET=${HOST} setup 
 }
 
 do_compile() {

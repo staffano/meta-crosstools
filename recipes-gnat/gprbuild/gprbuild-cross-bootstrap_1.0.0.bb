@@ -9,5 +9,5 @@ do_compile() {
 }
 
 do_install() {
-gprconfig --target=${TARGET} --config=Ada --config=C --batch
+gprconfig --target=${HOST} --config=Ada --config=C --batch
 }

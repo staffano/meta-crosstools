@@ -18,7 +18,7 @@ do_configure () {
     ${S}/configure \
 	--prefix=${INSTALL_DIR} \
 	--srcdir=${S} \
-	--target=${TARGET}
+	--target=${HOST}
 }
 
 do_fetch() {

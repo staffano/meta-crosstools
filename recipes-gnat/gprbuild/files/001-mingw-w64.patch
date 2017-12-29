@@ -1,6 +1,7 @@
-diff -Naur old/share/gprconfig/compilers.xml new/share/gprconfig/compilers.xml
---- old/share/gprconfig/compilers.xml	2017-10-23 16:10:14.000000000 +0200
-+++ new/share/gprconfig/compilers.xml	2017-11-18 10:09:25.734728000 +0100
+diff --git a/share/gprconfig/compilers.xml b/share/gprconfig/compilers.xml
+index 459ecf8f..88f9c9f9 100644
+--- a/share/gprconfig/compilers.xml
++++ b/share/gprconfig/compilers.xml
 @@ -20,7 +20,7 @@
    <!--    GCC 3.x & 4.x (not for GNAT Pro)-->
    <compiler_description>
@@ -46,9 +47,23 @@ diff -Naur old/share/gprconfig/compilers.xml new/share/gprconfig/compilers.xml
      <version>
        <external>${PREFIX}windres --version</external>
        <grep regexp="^GNU windres \(GNU Binutils\) (\S+)" group="1"></grep>
-diff -Naur old/share/gprconfig/linker.xml new/share/gprconfig/linker.xml
---- old/share/gprconfig/linker.xml	2017-10-23 16:10:14.000000000 +0200
-+++ new/share/gprconfig/linker.xml	2017-11-18 09:04:43.624833000 +0100
+diff --git a/share/gprconfig/cross.xml b/share/gprconfig/cross.xml
+index ae6306c2..30db0a71 100644
+--- a/share/gprconfig/cross.xml
++++ b/share/gprconfig/cross.xml
+@@ -17,7 +17,7 @@
+    <configuration>
+      <targets>
+        <target name="dotnet" />
+-       <target name="^.*-pc-mingw32$" />
++       <target name="^.*-(w64|pc)-mingw32$" />
+      </targets>
+      <config>
+    package Builder is
+diff --git a/share/gprconfig/linker.xml b/share/gprconfig/linker.xml
+index a213fd00..def36e28 100644
+--- a/share/gprconfig/linker.xml
++++ b/share/gprconfig/linker.xml
 @@ -29,7 +29,7 @@
      </targets>
      <hosts negate="true">
