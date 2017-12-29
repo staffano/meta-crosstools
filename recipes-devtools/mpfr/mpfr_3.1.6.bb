@@ -2,7 +2,7 @@ DESCRIPTION = "mpfr for TARGET"
 DEPENDS = "gmp"
 PR = "r1"
 SRC_URI = "\
-     http://www.mpfr.org/mpfr-current/mpfr-${PV}.tar.xz \
+     http://www.mpfr.org/mpfr-${PV}/mpfr-${PV}.tar.xz \
      "
 SRC_URI[md5sum] = "51bfdbf81553966c8d43808122cc81b3"
 LICENSE = "GPLv3"
