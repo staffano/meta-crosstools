@@ -15,7 +15,8 @@ do_configure () {
   	--with-mpfr=${INSTALL_DIR} \
   	--with-gmp=${INSTALL_DIR}  \
   	--with-isl=${INSTALL_DIR} \
-  	--enable-languages=c,c++,ada \
+  	--enable-languages=${LANGUAGES} \
   	--enable-threads=posix \
-  	--enable-fully-dynamic-string
+  	--enable-fully-dynamic-string \
+	--disable-bootstrap
 }
