@@ -6,6 +6,7 @@ B = "${WORKDIR}/${BUILD}.${TARGET}"
 
 ADDITIONAL_GCC_CONF_append_newlib = "--with-newlib "
 
+# The sysroot will be used by the final compiler to pick up the target c libs
 do_configure () {
   ${S}/configure \
 		--build=${BUILD} \
@@ -13,7 +14,7 @@ do_configure () {
 		--target=${TARGET} \
 		--prefix=${INSTALL_DIR} \
 		--without-headers \
-		--with-sysroot=${SYSROOT_DIR} \
+		--with-sysroot=${SYSROOT_DIR} \ 
 		--disable-shared \
 		--disable-threads \
 		--disable-libssp \
@@ -28,4 +29,12 @@ do_configure () {
 		--with-host-libstdcxx="-lstdc++" \
 		${ADDITIONAL_GCC_CONF} \
 		--enable-languages=c
+}
+
+do_compile () {
+	runmake all-gcc
+}
+
+do_install () {
+	runmake install-gcc
 }

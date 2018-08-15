@@ -11,8 +11,8 @@ SRC_URI = " \
 "
 S = "${WORKDIR}/git"
 
-addtask patch before do_configure
+# addtask patch before do_configure
 do_patch () {
   cd ${S}
-  patch -p1 < ${WORKDIR}/001-mingw-w64.patch
+#  patch -p1 < ${WORKDIR}/001-mingw-w64.patch
 }

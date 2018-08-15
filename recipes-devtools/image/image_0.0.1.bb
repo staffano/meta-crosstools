@@ -8,16 +8,6 @@ do_build () {
     mkdir -p ${IMAGE_DIR}
     cd ${IMAGE_DIR}
     cp -a ${INSTALL_DIR} ${HOST}.${TARGET}
-    if [ -d "${SYSROOT_DIR}" ]; then
-            if [ -d "${SYSROOT_DIR}/${TARGET}" ]; then
-                # SYSROOT/$TARGET/$TARGET -> INSTALL/$TARGET.$TARGET/$TARGET
-                cp -a ${SYSROOT_DIR}/${TARGET} ${HOST}.${TARGET}/${TARGET}
-            elif  [ -d "${SYSROOT_DIR}" ]; then
-                 cp -a ${SYSROOT_DIR} ${HOST}.${TARGET}/${TARGET}
-            else
-                echo "Improper SYSROOT"
-            fi
-    fi
     tar zcf ${HOST}.${TARGET}.tar.gz ${HOST}.${TARGET}
     rm -rf ${HOST}.${TARGET}
 }

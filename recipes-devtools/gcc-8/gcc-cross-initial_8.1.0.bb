@@ -33,9 +33,9 @@ do_configure () {
 }
 
 do_compile () {
-  oe_runmake ${MAKE_JX} all-gcc all-target-libgcc
+  runmake ${MAKE_JX} all-gcc all-target-libgcc
 }
 
 do_install () {
-  oe_runmake install-gcc install-target-libgcc
+  runmake install-gcc install-target-libgcc
 }

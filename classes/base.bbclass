@@ -1,6 +1,6 @@
 runmake() {
-    echo ${MAKE} "$@"
-	${MAKE} "$@" || echo "make failed"
+    echo ${MAKE} ${MAKE_JX} "$@"
+	${MAKE} ${MAKE_JX} "$@"
 }
 
 addtask fetch
@@ -68,7 +68,7 @@ addtask compile after do_configure
 do_compile[dirs] = "${B}"
 base_do_compile() {
 	if [ -e Makefile -o -e makefile -o -e GNUmakefile ]; then
-		runmake ${MAKE_JX} all || echo "make failed"
+		runmake all
 	else
 		echo "nothing to compile"
 	fi
@@ -77,7 +77,7 @@ base_do_compile() {
 addtask install after do_compile
 do_install[dirs] = "${B}"
 base_do_install() {
-	runmake install || echo "make install failed"
+	runmake install
 }
 
 addtask build after do_install

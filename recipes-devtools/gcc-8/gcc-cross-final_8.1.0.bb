@@ -26,7 +26,7 @@ CONFIG_OPTS = " \
 	${ADDITIONAL_GCC_CONF} \
 "
 
-CONFIG_OPTS_remove_newlib = " --with-sysroot=${SYSROOT_DIR} "
+CONFIG_OPTS_remove_newlib = " --with-sysroot "
 CONFIG_OPTS_append_newlib = " --with-newlib --disable-libada "
 
 CONFIG_OPTS_append_nothreads = " --disable-threads "
@@ -39,10 +39,6 @@ ${S}/configure ${CONFIG_OPTS}
 }
 
 PNAME = "${BUILD}.${HOST}.${TARGET}.tar.gz"
-
-do_install_append_sysroot-in-toolchain () {
-	rsync -a ${SYSROOT_DIR}/${TARGET}/ ${INSTALL_DIR}/${TARGET}/
-}
 
 do_install_append () {
 	cd ${INSTALL_DIR}

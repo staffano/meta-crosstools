@@ -14,7 +14,7 @@ B = "${WORKDIR}/gdbserver.${BUILD}.${TARGET}"
 
 do_configure () {
   ${S}/gdb/gdbserver/configure \
-      --prefix=${INSTALL_DIR} \
+      --prefix=${INSTALL_DIR}/${TARGET} \
       --build=${BUILD} \
       --host=${TARGET}
 }

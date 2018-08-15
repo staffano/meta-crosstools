@@ -38,11 +38,46 @@ Say you want to build a toolchain for crosscompiling to mingw, then you first ne
 
 ## Installation
 
-By running the `image` target, the toolchain is installed in the `tmp/IMAGES` directory. Th 
+By running the `image` target, the toolchain is installed in the `tmp/IMAGES` directory.
+
+## Versions 
+
+### recipes-devtools
+
+|  Package  |  Version |
+|-----------|----------|
+| binutils  | 2.28 |
+| eglibc | 2.15 / 2.19 |
+| expat | 2.1.0
+| gcc | 8.1.0 |
+| gdb | 8.0.1 |
+| glibc | 2.26 |
+| gmp | 6.1.2 |
+| isl | 0.18 |
+| linux-headers  | 3.2 / 4.4 / rpi3.4.9 |
+| mingw-w64 | git (master) |
+| mpc | 1.0.3 |
+| mpfr | 3.1.6 |
+| ncurses | 6.0 |
+| newlib | 2.5.0 |
+
+### recipes-gnat
+
+|  Package  |  Version |
+|-----------|----------|
+| gprbuild | git (master) |
+| xmlada | git (master) |
 
 ## License
 
 See [License](LICENSE)
 
+## TODO:
+
+### Updates:
+gdb: 8.1.1
+gcc: 8.2
+mingw-w64: 5.0.4
+binutils: 2.31.1. 
 
 
