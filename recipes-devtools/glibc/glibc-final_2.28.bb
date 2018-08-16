@@ -10,7 +10,7 @@ PR = "r1"
 SRC_URI = "\
     http://ftpmirror.gnu.org/glibc/glibc-${PV}.tar.xz \
     "
-SRC_URI[md5sum] = "102f637c3812f81111f48f2427611be1"
+SRC_URI[md5sum] = "c81d2388896379997bc359d4f2084239"
 LICENSE = "GPLv3"
 
 S = "${WORKDIR}/glibc-${PV}"
