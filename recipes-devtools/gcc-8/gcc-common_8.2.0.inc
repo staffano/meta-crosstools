@@ -6,7 +6,7 @@ PR = "r1"
 SRC_URI = "\
     ${GNU_SOURCE}/gcc/gcc-${PV}/gcc-${PV}.tar.xz \
     "
-SRC_URI[md5sum] = "65f7c65818dc540b3437605026d329fc"
+SRC_URI[md5sum] = "4ab282f414676496483b3e1793d07862"
 LICENSE = "GPLv3"
 
 S = "${WORKDIR}/gcc-${PV}"

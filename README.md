@@ -76,8 +76,5 @@ See [License](LICENSE)
 
 ### Updates:
 gdb: 8.1.1
-gcc: 8.2
-mingw-w64: 5.0.4
-binutils: 2.31.1. 
 
 
