@@ -14,5 +14,5 @@ S = "${WORKDIR}/git"
 # addtask patch before do_configure
 do_patch () {
   cd ${S}
-#  patch -p1 < ${WORKDIR}/001-x86_64-w64-mingw32.patch
+  patch -p1 < ${WORKDIR}/001-x86_64-w64-mingw32.patch
 }
