@@ -4,16 +4,16 @@ meta-crosstools is a repository of bitbake recipes that can be used to build bot
 Configuration files exists for the following host/target combos.
 
 
-| Host                 | Target                        |
-|----------------------|-------------------------------|
-|x86_64-pc-linux-gnu   | x86_64-pc-linux-gnu           |
-|x86_64-pc-linux-gnu   | mipsel-unknown-linux-gnu      |
-|x86_64-pc-linux-gnu   | arm-unknown-linux-gnueabihf   |
-|x86_64-pc-linux-gnu   | cris-elf                      |
-|x86_64-pc-linux-gnu   | x86_64-w64-mingw32            |
-|x86_64-w64-mingw32    | x86_64-w64-mingw32            |
-|x86_64-w64-mingw32    | mipsel-unknown-linux-gnu      |
-|x86_64-w64-mingw32    | arm-unknown-linux-gnueabihf   |
+| Host                 | Target                        | Status |
+|----------------------|-------------------------------|--------|
+|x86_64-pc-linux-gnu   | x86_64-pc-linux-gnu           | Ok     |
+|x86_64-pc-linux-gnu   | mipsel-unknown-linux-gnu      | Ok     |
+|x86_64-pc-linux-gnu   | arm-unknown-linux-gnueabihf   | Not Ok |
+|x86_64-pc-linux-gnu   | cris-elf                      | ?      |
+|x86_64-pc-linux-gnu   | x86_64-w64-mingw32            | Ok     |
+|x86_64-w64-mingw32    | x86_64-w64-mingw32            | Ok     |
+|x86_64-w64-mingw32    | mipsel-unknown-linux-gnu      | Ok     |
+|x86_64-w64-mingw32    | arm-unknown-linux-gnueabihf   | Not Ok |
 
 It is however easy to add support for additional toolchains.
 
@@ -73,8 +73,5 @@ By running the `image` target, the toolchain is installed in the `tmp/IMAGES` di
 See [License](LICENSE)
 
 ## TODO:
-
-### Updates:
-gdb: 8.1.1
 
 
