@@ -65,7 +65,7 @@ By running the `image` target, the toolchain is installed in the `tmp/IMAGES` di
 
 |  Package  |  Version |
 |-----------|----------|
-| gprbuild | git (master) |
+| gprbuild | git (SRCREV=23f880d69854e4900248d923c9790057da44d492) |
 | xmlada | git (master) |
 
 ## License
