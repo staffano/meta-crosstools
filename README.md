@@ -4,16 +4,16 @@ meta-crosstools is a repository of bitbake recipes that can be used to build bot
 Configuration files exists for the following host/target combos.
 
 
-| Host                 | Target                        |
-|----------------------|-------------------------------|
-|x86_64-pc-linux-gnu   | x86_64-pc-linux-gnu           |
-|x86_64-pc-linux-gnu   | mipsel-unknown-linux-gnu      |
-|x86_64-pc-linux-gnu   | arm-unknown-linux-gnueabihf   |
-|x86_64-pc-linux-gnu   | cris-elf                      |
-|x86_64-pc-linux-gnu   | x86_64-w64-mingw32            |
-|x86_64-w64-mingw32    | x86_64-w64-mingw32            |
-|x86_64-w64-mingw32    | mipsel-unknown-linux-gnu      |
-|x86_64-w64-mingw32    | arm-unknown-linux-gnueabihf   |
+| Host                 | Target                        | Status |
+|----------------------|-------------------------------|--------|
+|x86_64-pc-linux-gnu   | x86_64-pc-linux-gnu           | Ok     |
+|x86_64-pc-linux-gnu   | mipsel-unknown-linux-gnu      | Ok     |
+|x86_64-pc-linux-gnu   | arm-unknown-linux-gnueabihf   | Not Ok |
+|x86_64-pc-linux-gnu   | cris-elf                      | ?      |
+|x86_64-pc-linux-gnu   | x86_64-w64-mingw32            | Ok     |
+|x86_64-w64-mingw32    | x86_64-w64-mingw32            | Ok     |
+|x86_64-w64-mingw32    | mipsel-unknown-linux-gnu      | Ok     |
+|x86_64-w64-mingw32    | arm-unknown-linux-gnueabihf   | Not Ok |
 
 It is however easy to add support for additional toolchains.
 
@@ -46,15 +46,15 @@ By running the `image` target, the toolchain is installed in the `tmp/IMAGES` di
 
 |  Package  |  Version |
 |-----------|----------|
-| binutils  | 2.28 |
+| binutils  | 2.31.1 |
 | eglibc | 2.15 / 2.19 |
 | expat | 2.1.0
-| gcc | 8.1.0 |
-| gdb | 8.0.1 |
-| glibc | 2.26 |
+| gcc | 8.2.0 |
+| gdb | 8.1.1 |
+| glibc | 2.28 |
 | gmp | 6.1.2 |
 | isl | 0.18 |
-| linux-headers  | 3.2 / 4.4 / rpi3.4.9 |
+| linux-headers  | 3.2 / 4.4 / rpi3_4.9 |
 | mingw-w64 | git (master) |
 | mpc | 1.0.3 |
 | mpfr | 3.1.6 |
@@ -65,7 +65,7 @@ By running the `image` target, the toolchain is installed in the `tmp/IMAGES` di
 
 |  Package  |  Version |
 |-----------|----------|
-| gprbuild | git (master) |
+| gprbuild | git (SRCREV=23f880d69854e4900248d923c9790057da44d492) |
 | xmlada | git (master) |
 
 ## License
@@ -73,11 +73,5 @@ By running the `image` target, the toolchain is installed in the `tmp/IMAGES` di
 See [License](LICENSE)
 
 ## TODO:
-
-### Updates:
-gdb: 8.1.1
-gcc: 8.2
-mingw-w64: 5.0.4
-binutils: 2.31.1. 
 
 

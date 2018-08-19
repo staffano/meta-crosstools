@@ -7,11 +7,11 @@ PROVIDES = "virtual/linux-headers"
 PR = "r1"
 
 SRC_URI = "\
-      https://github.com/raspberrypi/linux/archive/rpi-${PV}.y.zip \
+      https://github.com/raspberrypi/linux/archive/rpi-${PV}.y-stable.zip \
      "
-SRC_URI[md5sum] = "d2809d5a4b9e7a4ee5959f12e5f87c20"
+SRC_URI[md5sum] = "e3e40ef914cbc4f4a7659350091e2dd6"
 LICENSE = "GPLv3"
-S = "${WORKDIR}/linux-rpi-${PV}.y"
+S = "${WORKDIR}/linux-rpi-${PV}.y-stable"
 
 do_compile () {
 :

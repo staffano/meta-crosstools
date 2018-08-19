@@ -2,7 +2,7 @@ DESCRIPTION = "xmlada"
 
 LIC_FILES_CHKSUM="file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 
-DEPENDS = "xmlada-source gprbuild-cross-bootstrap virtual/final-gcc"
+DEPENDS = "xmlada-source virtual/final-gcc"
 
 B = "${WORKDIR}/${BUILD}.${TARGET}"
 S = "${TMPDIR}/work-shared/xmlada/git"

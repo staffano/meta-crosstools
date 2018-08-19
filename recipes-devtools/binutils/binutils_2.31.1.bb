@@ -6,7 +6,7 @@ LICENSE = "GPL"
 SRC_URI = "\
      http://mirror.switch.ch/ftp/mirror/gnu/binutils/binutils-${PV}.tar.bz2 \
      "
-SRC_URI[md5sum] = "9e8340c96626b469a603c15c9d843727"
+SRC_URI[md5sum] = "84edf97113788f106d6ee027f10b046a"
 LICENSE = "GPLv3"
 
 PR = "r1"
