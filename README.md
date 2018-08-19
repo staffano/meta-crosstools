@@ -46,15 +46,15 @@ By running the `image` target, the toolchain is installed in the `tmp/IMAGES` di
 
 |  Package  |  Version |
 |-----------|----------|
-| binutils  | 2.28 |
+| binutils  | 2.31.1 |
 | eglibc | 2.15 / 2.19 |
 | expat | 2.1.0
-| gcc | 8.1.0 |
-| gdb | 8.0.1 |
-| glibc | 2.26 |
+| gcc | 8.2.0 |
+| gdb | 8.1.1 |
+| glibc | 2.28 |
 | gmp | 6.1.2 |
 | isl | 0.18 |
-| linux-headers  | 3.2 / 4.4 / rpi3.4.9 |
+| linux-headers  | 3.2 / 4.4 / rpi3_4.9 |
 | mingw-w64 | git (master) |
 | mpc | 1.0.3 |
 | mpfr | 3.1.6 |
