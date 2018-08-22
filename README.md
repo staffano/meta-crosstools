@@ -87,6 +87,7 @@ By running the `image` target, the toolchain is installed in the `tmp/IMAGES` di
 
 <a name="bintutils-fn">1</a>: glibc-4.9 is not compatible 
 with binutils >= 2.29.
+
 <a name="glibc-fn">2</a>: Raspbian currently relies on glibc-2.24
 
 ### recipes-gnat
