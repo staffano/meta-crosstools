@@ -2,13 +2,13 @@ DESCRIPTION = "Create a portable image of the toolchain"
 
 DEPENDS = "${IMAGE_FEATURES}"
 
-PR = "r1"
+PR = "r2"
 
 do_build () {
     mkdir -p ${IMAGE_DIR}
     cd ${IMAGE_DIR}
     cp -a ${INSTALL_DIR} ${HOST}.${TARGET}
-    tar zcf ${HOST}.${TARGET}.tar.gz ${HOST}.${TARGET}
+    tar hzcf ${HOST}.${TARGET}.tar.gz ${HOST}.${TARGET}
     rm -rf ${HOST}.${TARGET}
 }
 
