@@ -1,0 +1,169 @@
+<?xml version="1.0" ?>
+<gprconfig>
+  <compiler_description>
+    <name>STAFFANO_CRIS_GCC</name>
+    <executable prefix="1">(cris-unknown-linux-gnu-)gcc</executable>
+    <version>
+      <external>${PREFIX}gcc -v</external>
+      <nogrep regexp="for GNAT Pro"></nogrep>
+      <grep regexp="^gcc \S+ (\S+)" group="1"></grep>
+    </version>
+    <languages>C</languages>
+    <target>
+      <external>${PREFIX}gcc -dumpmachine</external>
+      <grep regexp="[^\r\n]+"></grep>
+    </target>
+  </compiler_description>
+
+  <!--  G++ compilers (not for GNAT Pro)  -->
+  <compiler_description>
+    <name>STAFFANO_CRIS_G++</name>
+     <executable prefix="1">(cris-unknown-linux-gnu-)g\+\+</executable>
+    <version>
+      <external>${PREFIX}g++ -v</external>
+      <nogrep regexp="for GNAT Pro"></nogrep>
+      <grep regexp="^gcc \S+ (\S+)" group="1"></grep>
+    </version>
+    <languages>C++</languages>
+    <target>
+      <external>${PREFIX}g++ -dumpmachine</external>
+      <grep regexp="[^\r\n]+"></grep>
+    </target>
+  </compiler_description>
+
+
+ <!--  Assembler -->
+  <compiler_description>
+    <name>STAFFANO_CRIS_GCC-ASM</name>
+    <executable prefix="1">(cris-unknown-linux-gnu-)gcc</executable>
+    <version>
+      <external>${PREFIX}gcc -v</external>
+      <grep regexp="^gcc \S+ (\S+)" group="1"></grep>
+    </version>
+    <languages>Asm,Asm_Cpp,Asm2</languages>
+    <target>
+      <external>${PREFIX}gcc -dumpmachine</external>
+      <grep regexp="[^\r\n]+"></grep>
+    </target>
+  </compiler_description>
+
+  <!--   GNAT
+    To find the list of supported runtimes, we check the contents of
+    the directory. To be compatible with older versions of GNAT (3.16
+    for instance), we also accept lib/gcc-lib as the directory that
+    contains the runtime files.
+   -->
+  <compiler_description>
+    <name>STAFFANO_CRIS_GNAT</name>
+    <executable prefix="1">(cris-unknown-linux-gnu-)gnatls</executable>
+    <version>
+      <external>${PREFIX}gnatls -v --version</external>
+      <grep regexp="^GNATLS.+?(\d+(\.\d+)?)" group="1"></grep>
+    </version>
+    <languages>Ada</languages>
+    <variable name="gcc_version">
+      <external>${PREFIX}gcc -v</external>
+      <grep regexp="^[-\w]*gcc \S+ (\S+)" group="1"></grep>
+    </variable>
+    <runtimes default="default,kernel,native">
+       <directory group="default" >\.\./lib/gcc(-lib)?/$TARGET/$gcc_version/adalib/</directory>
+       <directory group="default" contents="^rts-">\.\./lib/gcc(-lib)?/$TARGET/$gcc_version/ada_object_path</directory>
+       <directory group="2" >\.\./lib/gcc(-lib)?/$TARGET/$gcc_version/rts-(.*)/adalib/</directory>
+       <directory group="1" >\.\./$TARGET/lib/gnat/(.*)/adalib/</directory>
+    </runtimes>
+    <target>
+      <external>${PREFIX}gcc -dumpmachine</external>
+      <grep regexp="[^\r\n]+"></grep>
+    </target>
+  </compiler_description>
+
+
+  <configuration>
+     <compilers>
+       <compiler name="^STAFFANO_CRIS_GCC$" language="C" />
+     </compilers>
+     <config>
+   package Compiler is
+      for Driver              ("C") use "${PATH(c)}${PREFIX(c)}gcc";
+   end Compiler;
+     </config>
+   </configuration>
+
+<configuration>
+      <compilers>
+        <compiler name="^STAFFANO_CRIS_G\+\+$" language="C++" />
+     </compilers>
+     <config>
+   package Compiler is
+      for Driver              ("C++") use "${PATH(c++)}${PREFIX(c++)}g++";
+   end Compiler;
+     </config>
+   </configuration>
+
+ <configuration>
+     <compilers>
+        <compiler name="^STAFFANO_CRIS_G\+\+$" language="C++" />
+     </compilers>
+     <config>
+   package Compiler is
+      for Leading_Required_Switches   ("C++") use
+        ("-c", "-x", "c++") &amp;
+        Compiler'Leading_Required_Switches ("C++");
+      for Dependency_Switches ("C++") use ("-MMD", "-MF", "");
+      for Include_Switches_Via_Spec ("C++") use ("cc1plus", "-I");
+      for Max_Command_Line_Length use "8192";
+      for Response_File_Format    ("C++") use "GCC_GNU";
+   end Compiler;
+     </config>
+</configuration>
+
+  <configuration>
+   <compilers>
+   <compiler name="^STAFFANO_CRIS_GNAT$"/>
+   </compilers>
+   <config>
+   package Compiler is
+      for Driver                   ("Ada") use "${PATH(ada)}${PREFIX(ada)}gcc";
+      for Language_Kind            ("Ada") use "unit_based";
+      for Dependency_Kind          ("Ada") use "ALI_File";
+      for Leading_Required_Switches        ("Ada") use
+	  ("-c", "-x", "ada", "-gnatA")
+             &amp; Compiler'Leading_Required_Switches ("Ada");
+      for Mapping_File_Switches    ("Ada") use ("-gnatem=");
+      for Mapping_Spec_Suffix      ("Ada") use "%s";
+      for Mapping_Body_Suffix      ("Ada") use "%b";
+      for Config_File_Switches     ("Ada") use ("-gnatec=");
+      for Include_Path_File     ("Ada") use "ADA_PRJ_INCLUDE_FILE";
+   end Compiler;
+
+   package Binder is
+      for Objects_Path_File     ("Ada") use "ADA_PRJ_OBJECTS_FILE";
+      for Required_Switches ("Ada") use
+          Binder'Required_Switches ("Ada") &amp;
+          ("gnatbind_prefix=${PREFIX(ada)}");
+      for Driver         ("Ada") use
+          "${GPRCONFIG_PREFIX}libexec/gprbuild/gprbind";
+   end Binder;
+
+   for Toolchain_Version ("Ada") use "GNAT ${VERSION(ada)}";
+   for Runtime_Dir       ("Ada") use "${RUNTIME_DIR(ada)}";
+   </config>
+  </configuration>
+  
+ <configuration>
+    <targets>
+      <target name="^cris-unknown-linux-gnu$" />
+    </targets>
+    <config>
+   for Archive_Builder  use ("cris-unknown-linux-gnu-ar", "cr");
+   for Archive_Builder_Append_Option use ("q");
+   for Archive_Indexer  use ("cris-unknown-linux-gnu-ranlib");
+   for Archive_Suffix   use ".a";
+    </config>
+  </configuration>
+
+  <targetset canonical="cris-unknown-linux-gnu">
+    <target>cris-unknown-linux-gnu</target>
+  </targetset>
+
+</gprconfig>
