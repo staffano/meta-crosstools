@@ -1,139 +1,84 @@
 <?xml version="1.0" ?>
 <gprconfig>
+<!-- Since we're building this compiler ourselves, we know exactly
+     what it contains. -->
   <compiler_description>
-    <name>STAFFANO_MINGW_GCC</name>
-    <executable prefix="1">(x86_64-w64-mingw32)-gcc</executable>
-    <version>
-      <external>${PREFIX}gcc -v</external>
-      <nogrep regexp="for GNAT Pro"></nogrep>
-      <grep regexp="^gcc \S+ (\S+)" group="1"></grep>
-    </version>
-    <languages>C</languages>
-    <target>
-      <external>${PREFIX}gcc -dumpmachine</external>
-      <grep regexp="[^\r\n]+"></grep>
-    </target>
-  </compiler_description>
+    
+    <name>STAFFANO_MINGW</name>
 
-  <!--  G++ compilers (not for GNAT Pro)  -->
-  <compiler_description>
-    <name>STAFFANO_MINGW_G++</name>
-     <executable prefix="1">(x86_64-w64-mingw32-)g\+\+</executable>
-    <version>
-      <external>${PREFIX}g++ -v</external>
-      <nogrep regexp="for GNAT Pro"></nogrep>
-      <grep regexp="^gcc \S+ (\S+)" group="1"></grep>
-    </version>
-    <languages>C++</languages>
-    <target>
-      <external>${PREFIX}g++ -dumpmachine</external>
-      <grep regexp="[^\r\n]+"></grep>
-    </target>
-  </compiler_description>
-
-
- <!--  Assembler -->
-  <compiler_description>
-    <name>STAFFANO_MINGW_GCC-ASM</name>
-    <executable prefix="1">(x86_64-w64-mingw32-)gcc</executable>
-    <version>
-      <external>${PREFIX}gcc -v</external>
-      <grep regexp="^gcc \S+ (\S+)" group="1"></grep>
-    </version>
-    <languages>Asm,Asm_Cpp,Asm2</languages>
-    <target>
-      <external>${PREFIX}gcc -dumpmachine</external>
-      <grep regexp="[^\r\n]+"></grep>
-    </target>
-  </compiler_description>
-
-  <!--   GNAT
-    To find the list of supported runtimes, we check the contents of
-    the directory. To be compatible with older versions of GNAT (3.16
-    for instance), we also accept lib/gcc-lib as the directory that
-    contains the runtime files.
-   -->
-  <compiler_description>
-    <name>STAFFANO_MINGW_GNAT</name>
+    <!-- We know it has to contain the gnatls executable -->
     <executable prefix="1">(x86_64-w64-mingw32-)gnatls</executable>
+    
     <version>
       <external>${PREFIX}gnatls -v --version</external>
       <grep regexp="^GNATLS.+?(\d+(\.\d+)?)" group="1"></grep>
     </version>
-    <languages>Ada</languages>
+
+    <languages>Ada,C,C++,Asm,WinRes</languages>
+    
     <variable name="gcc_version">
       <external>${PREFIX}gcc -v</external>
       <grep regexp="^[-\w]*gcc \S+ (\S+)" group="1"></grep>
     </variable>
-    <runtimes default="default,kernel,native">
-       <directory group="default" >\.\./lib/gcc(-lib)?/$TARGET/$gcc_version/adalib/</directory>
-       <directory group="default" contents="^rts-">\.\./lib/gcc(-lib)?/$TARGET/$gcc_version/ada_object_path</directory>
-       <directory group="2" >\.\./lib/gcc(-lib)?/$TARGET/$gcc_version/rts-(.*)/adalib/</directory>
-       <directory group="1" >\.\./$TARGET/lib/gnat/(.*)/adalib/</directory>
+    
+    <runtimes default="default">
+       <directory group="default" >\.\./lib/gcc/$TARGET/$gcc_version/adalib/</directory>
     </runtimes>
+    
     <target>
       <external>${PREFIX}gcc -dumpmachine</external>
       <grep regexp="[^\r\n]+"></grep>
     </target>
+
   </compiler_description>
-
-
-  <configuration>
-     <compilers>
-       <compiler name="^STAFFANO_MINGW_GCC$" language="C" />
-     </compilers>
-     <config>
-   package Compiler is
-      for Driver              ("C") use "${PATH(c)}${PREFIX(c)}gcc";
-   end Compiler;
-     </config>
-   </configuration>
-
-<configuration>
-      <compilers>
-        <compiler name="^STAFFANO_MINGW_G\+\+$" language="C++" />
-     </compilers>
-     <config>
-   package Compiler is
-      for Driver              ("C++") use "${PATH(c++)}${PREFIX(c++)}g++";
-   end Compiler;
-     </config>
-   </configuration>
-
- <configuration>
-     <compilers>
-        <compiler name="^STAFFANO_MINGW_G\+\+$" language="C++" />
-     </compilers>
-     <config>
-   package Compiler is
-      for Leading_Required_Switches   ("C++") use
-        ("-c", "-x", "c++") &amp;
-        Compiler'Leading_Required_Switches ("C++");
-      for Dependency_Switches ("C++") use ("-MMD", "-MF", "");
-      for Include_Switches_Via_Spec ("C++") use ("cc1plus", "-I");
-      for Max_Command_Line_Length use "8192";
-      for Response_File_Format    ("C++") use "GCC_GNU";
-   end Compiler;
-     </config>
-</configuration>
 
   <configuration>
    <compilers>
-   <compiler name="^STAFFANO_MINGW_GNAT$"/>
+       <compiler name="^STAFFANO_MINGW$"/>
    </compilers>
    <config>
    package Compiler is
-      for Driver                   ("Ada") use "${PATH(ada)}${PREFIX(ada)}gcc";
-      for Language_Kind            ("Ada") use "unit_based";
-      for Dependency_Kind          ("Ada") use "ALI_File";
-      for Leading_Required_Switches        ("Ada") use
-	  ("-c", "-x", "ada", "-gnatA")
+
+      for Max_Command_Line_Length use "8192";      
+      for Library_Encapsulated_Supported use "true";
+
+      for Driver                    ("Ada") use "${PATH(ada)}${PREFIX(ada)}gcc";
+      for Language_Kind             ("Ada") use "unit_based";
+      for Dependency_Kind           ("Ada") use "ALI_File";
+      for Leading_Required_Switches ("Ada") use ("-c", "-x", "ada", "-gnatA")
              &amp; Compiler'Leading_Required_Switches ("Ada");
-      for Mapping_File_Switches    ("Ada") use ("-gnatem=");
-      for Mapping_Spec_Suffix      ("Ada") use "%s";
-      for Mapping_Body_Suffix      ("Ada") use "%b";
-      for Config_File_Switches     ("Ada") use ("-gnatec=");
-      for Include_Path_File     ("Ada") use "ADA_PRJ_INCLUDE_FILE";
+      for Mapping_File_Switches     ("Ada") use ("-gnatem=");
+      for Mapping_Spec_Suffix       ("Ada") use "%s";
+      for Mapping_Body_Suffix       ("Ada") use "%b";
+      for Config_File_Switches      ("Ada") use ("-gnatec=");
+      for Include_Path_File         ("Ada") use "ADA_PRJ_INCLUDE_FILE";
+
+
+      for Driver                    ("Asm") use "${PATH(asm)}${PREFIX(asm)}gcc";
+      for Leading_Required_Switches ("Asm") use
+         Compiler'Leading_Required_Switches ("Asm") &amp;
+         ("-c", "-x", "assembler-with-cpp");
+      for Include_Switches          ("Asm") use ("-I");
+      for Response_File_Format      ("Asm") use "GCC_GNU";
+      for Dependency_Switches       ("Asm") use ("-MMD", "-MF", "");
+  
+      for Driver                    ("C") use "${PATH(c)}${PREFIX(c)}gcc";
+      for Leading_Required_Switches ("C") use Compiler'Leading_Required_Switches ("C") &amp; ("-c", "-x", "c");
+      for Include_Switches          ("C") use ("-I");
+      for Response_File_Format      ("C") use "GCC_GNU";
+      for Dependency_Switches       ("C") use ("-MMD", "-MF", "");
+      
+      for Driver                    ("C++") use "${PATH(c++)}${PREFIX(c++)}g++";
+      for Leading_Required_Switches ("C++") use Compiler'Leading_Required_Switches  &amp; ("C++")("-c", "-x", "c++");
+      for Dependency_Switches       ("C++") use ("-MMD", "-MF", "");
+      for Include_Switches_Via_Spec ("C++") use ("cc1plus", "-I");
+      for Response_File_Format      ("C++") use "GCC_GNU";
+      
+      
+      for Driver                    ("WinRes") use "x86_64-w64-mingw32-windres";
+      for Leading_Required_Switches ("WinRes") use ("-i");
+      for Object_File_Suffix        ("WinRes") use ".coff";
+      for Object_File_Switches      ("WinRes") use ("-o", "");
    end Compiler;
 
    package Binder is
@@ -149,6 +94,7 @@
 
    for Toolchain_Version ("Ada") use "GNAT ${VERSION(ada)}";
    for Runtime_Dir       ("Ada") use "${RUNTIME_DIR(ada)}";
+   
    </config>
   </configuration>
   
@@ -161,6 +107,15 @@
    for Archive_Builder_Append_Option use ("q");
    for Archive_Indexer  use ("x86_64-w64-mingw32-ranlib");
    for Archive_Suffix   use ".a";
+
+   for Object_Lister use ("x86_64-w64-mingw32-nm", "-g", "--no-demangle");
+   for Object_Lister_Matcher use " [TDRB] (.*)";
+   for Library_Partial_Linker use
+      ("${PATH(ada)}${PREFIX(ada)}gcc", "-nostdlib", "-Wl,-r", "-o");
+   package Linker is
+      for Export_File_Format use "GNU";
+      for Export_File_Switch use "-Wl,--version-script=";
+   end Linker;
     </config>
   </configuration>
 

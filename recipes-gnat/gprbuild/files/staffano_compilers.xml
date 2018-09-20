@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<gprconfig>
+  <!-- Since we're building this compiler ourselves, we know exactly
+     what it contains. -->
+  <compiler_description>
+    <name>STAFFANO_COMP</name>
+    <!-- We know it has to contain the gnatls executable -->
+    <executable prefix="1">(x86_64-w64-mingw32-|mipsel-unknown-linux-gnu-|cris-unknown-linux-gnu-|armv7l-unknown-linux-gnueabihf-)gnatls</executable>
+    <version>
+      <external>${PREFIX}gnatls -v --version</external>
+      <grep regexp="^GNATLS.+?(\d+(\.\d+)?)" group="1"></grep>
+    </version>
+    <languages>Ada,C,C++,Asm</languages>
+    <variable name="gcc_version">
+      <external>${PREFIX}gcc -v</external>
+      <grep regexp="^[-\w]*gcc \S+ (\S+)" group="1"></grep>
+    </variable>
+    <runtimes default="default">
+      <directory group="default">\.\./lib/gcc/$TARGET/$gcc_version/adalib/</directory>
+    </runtimes>
+    <target>
+      <external>${PREFIX}gcc -dumpmachine</external>
+      <grep regexp="[^\r\n]+"></grep>
+    </target>
+  </compiler_description>
+
+  <compiler_description>
+    <name>STAFFANO_WINDRES</name>
+    <executable>x86_64-w64-mingw32-windres</executable>
+    <version>
+      <external>x86_64-w64-mingw32-windres --version</external>
+      <grep regexp="^GNU windres \(GNU Binutils\) (\S+)" group="1"></grep>
+    </version>
+    <languages>WinRes</languages>
+    <target>x86_64-w64-mingw32</target>
+  </compiler_description>
+</gprconfig>

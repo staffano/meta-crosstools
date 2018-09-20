@@ -9,7 +9,7 @@ PR = "r1"
 SRC_URI = "\
       https://github.com/raspberrypi/linux/archive/rpi-${PV}.y.zip \
      "
-SRC_URI[md5sum] = "6d2d8cb442501fffd73df02f668e1254"
+SRC_URI[md5sum] = "c38a058c7f20d9082c5c712835089d74"
 LICENSE = "GPLv3"
 S = "${WORKDIR}/linux-rpi-${PV}.y"
 
