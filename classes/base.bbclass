@@ -87,9 +87,32 @@ do_build () {
 }
 
 addtask do_clean
-base_do_clean () {
-  rm -f ${STAMP}*
-  rm -rf ${WORKDIR}
+python base_do_clean () {
+    
+    import shutil
+    import glob
+
+    # First, make sure this task is not stamped. It will always run...
+    d.setVarFlag('do_clean', 'nostamp', 'True')
+
+    # Then we need to close the fifo file, so that we can
+    # erase the work directory
+    tempdir = d.getVar('T')
+    fifopath = os.path.join(tempdir, 'fifo.%s' % os.getpid())
+    if os.path.exists(fifopath):
+        os.unlink(fifopath)
+    
+    # Delete all stamps that are associated with the recipe
+    stamps = d.getVar('STAMP') + ".*"
+    for f in glob.glob(stamps):
+        os.remove(f)
+
+    workdir = d.getVar('WORKDIR')
+    try:
+        shutil.rmtree(workdir)
+    except Exception as e:
+        bb.warn("Exception: {excp}".format(excp=e))
+    bb.plain("Cleaned recipe " + d.getVar('PN'))
 }
 
 EXPORT_FUNCTIONS do_fetch do_unpack do_configure do_compile do_install do_package do_build do_patch do_clean

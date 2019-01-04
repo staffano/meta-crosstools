@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "build.py image native",
+            "name": "build.py image native-mipsel",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/scripts/build.py",
@@ -13,6 +13,18 @@
             "args": [
                 "image",
                 "native-mipsel"
+            ]
+        },
+        {
+            "name": "build.py --clean xmlada native",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/build.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--clean",
+                "xmlada",
+                "native"
             ]
         },
     ]
