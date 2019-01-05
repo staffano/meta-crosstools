@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.WARNING, format='%(asctime)s %(message)s')
 # The root dir is the location of 'meta-crosstools' workspace directory
 rootDir = path.normpath(path.join(path.realpath(__file__), '../../'))
 logging.info('Root dir is "%s"' % rootDir)
-BITBAKE_VERSION = '1.38.0'
+BITBAKE_VERSION=os.getenv('BITBAKE_VERSION', '1.38.0')
 
 # We keep a notion of a "workspace", so that we can relate
 # paths to. Makes it easier to move stuff around.
