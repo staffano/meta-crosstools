@@ -4,7 +4,7 @@ SECTION = "devel"
 LICENSE = "GPL"
 
 SRC_URI = "\
-     http://mirror.switch.ch/ftp/mirror/gnu/binutils/binutils-${PV}.tar.bz2 \
+     http://ftp.acc.umu.se/mirror/gnu.org/gnu/binutils/binutils-${PV}.tar.bz2 \
      "
 SRC_URI[md5sum] = "84edf97113788f106d6ee027f10b046a"
 LICENSE = "GPLv3"
