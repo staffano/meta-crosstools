@@ -209,7 +209,7 @@ def runBitbake(target, recipe):
     stamp = makeStamp(target, recipe)
     if hasStamp(stamp):
         logging.info('{} already done. Skipping'.format(stamp))
-        print('{} already built. Skipping'.format(target))
+        print('{}:{} already built. Skipping'.format(target,recipe))
         return
 
     deps = getDependencies(target)

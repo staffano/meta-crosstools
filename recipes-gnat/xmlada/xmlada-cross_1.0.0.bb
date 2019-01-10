@@ -17,14 +17,11 @@ addtask preconfigure before do_configure
 do_configure () {    
     ${S}/configure \
 	--srcdir=${S} \
-	--target=${TARGET} \
-	--disable-shared
+	--target=${TARGET}
 }
+
 do_install () {
 	  make all install IPREFIX=${INSTALL_DIR}
-}
-do_fetch() {
-  :
 }
 
 deltask do_patch
