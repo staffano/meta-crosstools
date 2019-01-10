@@ -12,11 +12,13 @@ do_configure() {
 do_compile() {
 	make -f ${S}/Makefile ${MAKE_JX} all  
 	make -f ${S}/Makefile ${MAKE_JX} libgpr.build.static 
-#	make -f ${S}/Makefile ${MAKE_JX} libgpr.build.shared 
+	make -f ${S}/Makefile ${MAKE_JX} libgpr.build.shared
+	make -f ${S}/Makefile ${MAKE_JX} libgpr.build.static-pic
 }
 
 do_install() {
 	make -f ${S}/Makefile install 
 	make -f ${S}/Makefile libgpr.install.static 
-#	make -f ${S}/Makefile libgpr.install.shared	
+	make -f ${S}/Makefile libgpr.install.shared	
+	make -f ${S}/Makefile libgpr.install.static-pic	
 }
