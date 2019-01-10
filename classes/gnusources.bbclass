@@ -1,2 +1,2 @@
-GNU_SOURCE = "http://mirror.switch.ch/ftp/mirror/gnu"
+GNU_SOURCE = "http://ftp.acc.umu.se/mirror/gnu.org/gnu"
 KERNEL_SOURCES = "https://www.kernel.org/pub/linux/kernel"

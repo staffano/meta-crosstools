@@ -17,10 +17,12 @@ addtask preconfigure before do_configure
 
 do_configure () {    
     ${S}/configure \
-	--prefix=${INSTALL_DIR} \
 	--srcdir=${S}
 }
 
+do_install () {
+	  make all install IPREFIX=${INSTALL_DIR}
+}
 do_fetch() {
   :
 }

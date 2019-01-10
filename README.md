@@ -64,6 +64,29 @@ Say you want to build a toolchain for crosscompiling to mingw, then you first ne
 
 By running the `image` target, the toolchain is installed in the `tmp/IMAGES` directory.
 
+## Docker support
+
+By running inside a docker container, we can use this tool on Windows too. There are a few powershell scripts in the `scripts` folder to make this task easier.
+
+If docker for windows is set up properly, with a good number of cpus and massive amount of disk space allocated for it, then building on windows is as easy as building on windows. It's even faster and easier to erase all the files!
+
+The following command:
+
+```powershell
+>scripts\Build-Recipy.ps1 image mingw-mingw
+```
+
+will build the following images `x86_64-pc-linux-gnu.x86_64-pc-linux-gnu`, `x86_64-pc-linux-gnu.x86_64-w64-mingw32` and `x86_64-w64-mingw32.x86_64-w64-mingw32` and store them inside the `bb-tmp` docker volume.
+In order to fetch an image from the `bb-tmp` volume, the `scripts/Get-Image.ps1` script exists.
+
+ ```powershell
+ >scripts\Get-Image.ps1 x86_64-pc-linux-gnu.x86_64-pc-linux-gnu.x86_64-w64-mingw32
+ ```
+
+This will fetch the `x86_64-pc-linux-gnu.x86_64-w64-mingw32.tar.gz` image and store it in an `IMAGES` subfolder of the folder you currently are in.
+
+If something fails when building inside the contaier, there is a script `script\Debug-Container.ps1` that opens a `bash` prompt inside a build container, so you can examine the tmp folder.
+
 ## Versions 
 
 ### recipes-devtools
