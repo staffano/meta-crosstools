@@ -71,7 +71,7 @@ if ($verbosity) {
 
 
 # Execute command
-docker run --rm -it -v bb-download:/meta-crosstools/build/downlads -v bb-tmp:/meta-crosstools/build/tmp mcb:latest $switches $Recipe $TargetName
+docker run --rm -it -v bb-download:/meta-crosstools/build/downloads -v bb-tmp:/meta-crosstools/build/tmp mcb:latest $switches $Recipe $TargetName
 
 # Restore location where we were before script
 Pop-Location
