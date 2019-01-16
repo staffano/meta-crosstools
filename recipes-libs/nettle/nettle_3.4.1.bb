@@ -11,6 +11,6 @@ do_configure() {
     ${S}/configure  \
       --prefix=${INSTALL_DIR} \
       --build=${BUILD} \
-      --host=${HOST} \
-      --target=${TARGET}
+      --host=${TARGET} \
+      --disable-shared
 }

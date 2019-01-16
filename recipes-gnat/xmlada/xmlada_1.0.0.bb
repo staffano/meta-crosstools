@@ -11,6 +11,7 @@ PATH_prepend = "${TMPDIR}/work-shared/gprbuild/bootstrap/bin:"
 do_preconfigure() {
 	cp -a ${S} ${B}
 }
+
 do_preconfigure[depends] = "xmlada-source:do_build"
 
 addtask preconfigure before do_configure

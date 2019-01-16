@@ -1,5 +1,5 @@
 DESCRIPTION = "The GnuTLS Transport Layer Security Library"
-DEPENDS = "nettle gmp"
+DEPENDS = "nettle gmp pkg-config-wrapper"
 PR = "r1"
 SRC_URI = "\
      http://ftp.heanet.ie/mirrors/ftp.gnupg.org/gcrypt/gnutls/v3.6/gnutls-${PV}.tar.xz \
@@ -10,7 +10,7 @@ LICENSE = "LGPLv2.1+"
 do_configure () {
   ${S}/configure  \
     --prefix=${INSTALL_DIR} \
-    --target=${TARGET} \
     --build=${BUILD} \
-    --host=${HOST}
+    --host=${TARGET} \
+    --disable-shared
 }
