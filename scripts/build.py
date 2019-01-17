@@ -24,6 +24,7 @@ logging.basicConfig(level=logging.WARNING, format='%(asctime)s %(message)s')
 rootDir = path.normpath(path.join(path.realpath(__file__), '../../'))
 logging.info('Root dir is "%s"' % rootDir)
 BITBAKE_VERSION=os.getenv('BITBAKE_VERSION', '1.38.0')
+TOOLCHAIN_IMAGE_NAME='toolchain-image'
 
 # We keep a notion of a "workspace", so that we can relate
 # paths to. Makes it easier to move stuff around.
@@ -214,7 +215,7 @@ def runBitbake(target, recipe):
 
     deps = getDependencies(target)
     for d in deps:
-        runBitbake(d, 'image')
+        runBitbake(d, TOOLCHAIN_IMAGE_NAME)
     buildDir = wspath('build')
     print('Building recipe {} for {}'.format(recipe, target))
     proc = subprocess.run(args=['bitbake', '-R', getTargetConfFile(target), recipe],
@@ -249,8 +250,8 @@ def main():
 
     parser = argparse.ArgumentParser(
         description="Build a toolchain by specifying the target and the recipe to call on that target.",
-        epilog='For instance, "scripts/build.py image native-mipsel mingw-rpi3" would result in that'
-        ' the image recipe would be built for the following '
+        epilog='For instance, "scripts/build.py toolsnlibs native-mipsel mingw-rpi3" would result in that'
+        ' the toolsnlibs recipe would be built for the following '
         'targets: native, native-mipsel, native-rpi3, native-mingw, mingw-rpi3')
     parser.add_argument("-v", "--verbosity", help="Display more information",
                         action="store_true")

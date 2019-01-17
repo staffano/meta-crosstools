@@ -9,12 +9,16 @@ SRC_URI = " \
     git://github.com/AdaCore/gprbuild.git;protocol=https \
       file://staffano_compilers.xml \
     	file://staffano_configurations.xml \
+      file://001-windres-prefix.patch \
 "
 S = "${WORKDIR}/git"
 
-# addtask patch before do_configure
+# addtask patch after do_fetch
 do_patch () {
   cd ${S}
   cp ${WORKDIR}/staffano_compilers.xml ${S}/share/gprconfig/
   cp ${WORKDIR}/staffano_configurations.xml ${S}/share/gprconfig/
+  
+  patch -p1 < ${WORKDIR}/001-windres-prefix.patch
+
 }

@@ -6,11 +6,12 @@ SRC_URI = "\
      "
 SRC_URI[md5sum] = "9bdebb0e2f638d3b9d91f7fc264b70c1"
 LICENSE = "LGPLv3+ | GPLv2+"
-
+APP_DIR = "mingw"
 do_configure() {
     ${S}/configure  \
-      --prefix=${INSTALL_DIR} \
+      --prefix=${SYSROOT_DIR}/${APP_DIR} \
       --build=${BUILD} \
       --host=${TARGET} \
-      --disable-shared
+      --disable-shared \
+       CFLAGS=--sysroot=${SYSROOT_DIR} 
 }
