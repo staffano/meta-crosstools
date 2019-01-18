@@ -6,7 +6,6 @@ SRC_URI = "\
      "
 SRC_URI[md5sum] = "9066486bcab807f7ddaaf2596348c1db"
 LICENSE = "Other"
-APP_DIR = "mingw"
 
 do_configure() { 
     pushd  ${S} 

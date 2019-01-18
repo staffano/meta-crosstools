@@ -1,7 +1,9 @@
 DESCRIPTION = "Create a portable image of the toolchain and some basic libs"
 
-DEPENDS = "${TOOLCHAIN_IMAGE_FEATURES} pkg-config-wrapper libffi \
-    libiconv libtasn1 nettle p11-kit gmp-sysroot gnutls"
+DEPENDS = "${TOOLCHAIN_IMAGE_FEATURES} \
+    pkg-config-wrapper libffi \
+    libiconv libtasn1 nettle p11-kit gmp-sysroot gnutls \
+    sqlite"
 
 PR = "r2"
 

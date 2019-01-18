@@ -5,7 +5,7 @@ SRC_URI = "\
      "
 SRC_URI[md5sum] = "f58fa8001d60c4c77595fbbb62b63c1d"
 LICENSE = "GPLv3"
-DEPENDS = "pkg-config-wrapper"
+DEPENDS = "virtual/final-gcc pkg-config-wrapper"
 APP_DIR = "mingw"
 S = "${WORKDIR}/gmp-${PV}"
 do_configure () {
@@ -16,6 +16,8 @@ do_configure () {
     --prefix=${SYSROOT_DIR}/${APP_DIR} \
     --enable-fat \
     --enable-cxx \
+    --disable-static \
+    --enable-shared \
     CFLAGS=--sysroot=${SYSROOT_DIR} \
     CPPFLAGS='-fexceptions'
 }

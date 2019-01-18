@@ -7,25 +7,23 @@ PV = "git${SRCPV}"
 
 SRCREV = "81b2d66c3877c18408ae03aeba4949c63b4e9c29"
 SRC_URI = " \
-    git://github.com/AdaCore/aws.git;protocol=https \
+    gitsm://github.com/AdaCore/aws.git;protocol=https \
 "
 S = "${WORKDIR}/git"
+## DOES NOT WORK on mingw. The wrong windres compiler is picked up.
 
 # Build gpr build to execute on host.
 do_configure() {
 	cd ${S}
-  git submodule init
-  git submodule update
-  make prefix=${INSTALL_DIR} NETLIB=ipv4 SOCKET=gnutls TARGET=${TARGET} setup
-  
+  	make prefix=${INSTALL_DIR} NETLIB=ipv4 SOCKET=gnutls ENABLE_SHARED=false TARGET=${TARGET} setup  
 }
 
 do_compile() {
 	cd ${S}
-	make  ${MAKE_JX} build  
+	make ${MAKE_JX} build  
 }
 
 do_install() {
-		cd ${S}
+	cd ${S}
 	make install 
 }
