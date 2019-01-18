@@ -203,7 +203,7 @@ def getDependencies(target):
         return m.group(1).split(',')
 
 
-def runBitbake(target, recipe):
+def runBitbake(verbosity, target, recipe):
     """Run bitbake with the recipe on the given target"""
     logging.info('BEGIN runBitbake {target} {recipe}'.format(
         target=target, recipe=recipe))
@@ -212,15 +212,19 @@ def runBitbake(target, recipe):
         logging.info('{} already done. Skipping'.format(stamp))
         print('{}:{} already built. Skipping'.format(target,recipe))
         return
-
     deps = getDependencies(target)
     for d in deps:
-        runBitbake(d, TOOLCHAIN_IMAGE_NAME)
+        runBitbake(verbosity, d, TOOLCHAIN_IMAGE_NAME)
     buildDir = wspath('build')
     print('Building recipe {} for {}'.format(recipe, target))
-    proc = subprocess.run(args=['bitbake', '-R', getTargetConfFile(target), recipe],
-                          cwd=buildDir,
-                          env=getBitbakeEnv())
+    if verbosity:
+        proc = subprocess.run(args=['bitbake', verb, '-R', getTargetConfFile(target), recipe],
+                              cwd=buildDir,
+                              env=getBitbakeEnv())
+    else:
+        proc = subprocess.run(args=['bitbake','-R', getTargetConfFile(target), recipe],
+                              cwd=buildDir,
+                              env=getBitbakeEnv())
     if proc.returncode == 0:
         setStamp(stamp)
     else:
@@ -271,7 +275,7 @@ def main():
         if args.clean:
             clean(t, args.recipe)
         else:
-            runBitbake(t, args.recipe)
+            runBitbake(args.verbosity, t, args.recipe)
 
 
 if __name__ == "__main__":

@@ -7,10 +7,15 @@ SRC_URI = "\
 SRC_URI[md5sum] = "9066486bcab807f7ddaaf2596348c1db"
 LICENSE = "Other"
 
+do_preconfigure() {
+ 	echo "XXX${S}XXX"
+    cd ${S}
+    ls -al
+    ./autogen.sh
+}
+addtask preconfigure after do_unpack before do_configure
+
 do_configure() { 
-    pushd  ${S} 
-    ./autogen.sh 
-    popd
     ${S}/configure  \
       --prefix=${SYSROOT_DIR}/${APP_DIR} \
       --build=${BUILD} \
